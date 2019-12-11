@@ -1,0 +1,40 @@
+easy_admin:
+    site_name: 'AKEO'
+    list:
+        max_results: 20
+    formats:
+        datetime: 'Y-m-d HH:mm:ss'
+    entities:
+        Client:
+            class: App\Entity\Client
+            name_property_path: 'name'
+            form:
+                fields:
+                    - { property: 'firstName', css_class: 'large' }
+                    - { property: 'lastName', css_class: 'large' }
+                    - { property: 'phone', type: 'tel' }
+                    - { property: 'email', type: 'email'}
+            list:
+                fields:
+                    - id,
+                    - name,
+                    - phone,
+                    - email
+                filters: ['name', 'phone', 'email']
+            search:
+                fields: ['name', 'phone', 'email', 'address.city']
+        Product:
+            class: App\Entity\Product
+            form:
+                fields:
+                    - { property: 'name', css_class: 'large' }
+                    - { property: 'description', type: 'text_editor' }
+                    - { property: 'category', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Category' } }
+                    - weight
+                    - volume
+                    - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
+        Category:
+            class: App\Entity\Category
+            name_property_path: 'name'
+            search:
+                fields: ['name']
